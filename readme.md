@@ -8,6 +8,9 @@ NLP :
 - gramatical correctness
 - Speech Tagging
 
+NLU :
+- Named Entity Recognition
+
 The NLU and NLG may not be completed before due date, but I will continue to work on the project, as this project alligns with my capstone project. 
 The capstone project that I currently am working is a vs-code extention to help visually impaired people code. The extention includes many functionalities such as enlarging font size, changing theme, going to a certain line etc, which helps people with different visual difficulties write code. 
 One of the functionality that we are trying to incorporate is voice commands, which allows users to speak commands to access the extention functionalities rather than having to use short-cut keys or to navigate through the menus. 
@@ -16,6 +19,14 @@ The problem I see with this is that the user has to speak the exact function nam
 
 We can use context free grammar to build the langugage that the extention understands. The language of this extention will be a subset of natural english language and is limited within the context of the extention. 
 Example, the extention will understand 'Can you run the current program' but will not understand 'Play my favorite music'
+The list of commands the grammar should recognize are shared in the [commands.png] file.
 
+The goal of the project is to reduce naturally spoken english to these commands.
+
+some assumptions about the input:
+- all of the inputs are provided small english character and are separated by a space.
+- inputs does not contain special characters[@#$&,./%""...]
+
+The grammar does not deal with ambiguity. Since this NLP is performed over a very specific domain, the chances of ambuigity is rare. 
 
 
