@@ -1,6 +1,7 @@
 #include <iostream>
 #include <vector>
 #include <fstream>
+#include "ECR.cpp"
 
 #define COUNT 10
 using namespace std;
@@ -191,7 +192,7 @@ void printTable(bool ***table, int loi, int los)
     }
 }
 
-bool cyk(vector<string> input, char **rules, int n_rules,string states,vector<vector<vector<int> > > &trace_back)
+bool*** cyk(vector<string> input, char **rules, int n_rules,string states,vector<vector<vector<int> > > &trace_back,vector<string> &gramaticalKnowledge)
 {
     int loi = input.size();
     int los = states.size();
@@ -209,7 +210,8 @@ bool cyk(vector<string> input, char **rules, int n_rules,string states,vector<ve
         }
     }
   
-
+    string verb = "";
+    string noun = "";
     for (int i = 0; i < loi; i++)
         for (int j = 0; j < n_rules; j++)
         {   
@@ -219,6 +221,13 @@ bool cyk(vector<string> input, char **rules, int n_rules,string states,vector<ve
                 //cout<<"rule and state matched"<<endl;
                 int state_id = s2i(states, rule[0]);
                 table[0][i][state_id] = true;
+                if (state_id==2){
+                     verb = input.at(i);
+                }
+                else if(state_id==1){
+                     noun = input.at(i);
+                }
+                //fill up other parts of speech for nlu
             }
         }
     
@@ -264,31 +273,16 @@ bool cyk(vector<string> input, char **rules, int n_rules,string states,vector<ve
                     }
                 }
 
-    
-    // for (int i = 0; i < loi; i++)
-    // {
-    //     cout << "length " << i << ":" << endl;
-    //     for (int j = 0; j < loi; j++)
-    //     {
-    //         cout << "start " << j << ":";
-    //         for (int k = 0; k < los; k++)
-    //         {
-    //             if (table[i][j][k])
-    //                 cout << states[k] << ',';
-    //         }
-    //         cout << " ";
-    //     }
-    //     cout << endl;
-    // }
-
     if (table[loi - 1][0][0]){
         //printTable(table,loi,los);
-        return true;
+        gramaticalKnowledge.push_back(verb);
+        gramaticalKnowledge.push_back(noun);
+        return table;
         }
     else
         {
         cout<<"Input string cannot be generated from the grammar."<<endl;
-        return false;
+        return nullptr;
         
         }
     
@@ -316,9 +310,11 @@ int main()
 
     // cout<<"enter a string: "<<endl;
     // getline(cin,input);
-    std::ifstream infile("testInputCommands.txt");
+    ECR ecr;
+    std::ifstream infile("test.txt");
     while (std::getline(infile, input))
-{
+{   
+    cout<<endl;
     cout<<"command: "<<input<<endl;
     vector<string> separetedInput = processInput(input);
     
@@ -348,11 +344,20 @@ int main()
         "P=AB",
         "B=NJ",
          };
+
     int n_rules = 39;
     string states = "SNVADPXBJ";
-    bool result = cyk(separetedInput, rules, n_rules, states,traceback);
-    if(result)
-    cout<<"The command is syntactically correct."<<endl<<endl;;
+    vector<string> gramaticalKnowlegde;
+    bool*** table = cyk(separetedInput, rules, n_rules, states,traceback,gramaticalKnowlegde);
+    if(table){
+    cout<<"The command is syntactically correct."<<endl;
+    
+    bool valid = ecr.symanticAnalysis(gramaticalKnowlegde);
+
+    if(valid)
+    cout<<"The command is symantically correct."<<endl<<endl;
+
+    }
 }
     return 0;
 

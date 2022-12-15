@@ -1,8 +1,10 @@
 increase the font size
 increase the current font size
+increase hub
 increase font size
+connect font
 update the current theme
-update current theme
+increase current theme
 select a new line
 select the last line
 select line
