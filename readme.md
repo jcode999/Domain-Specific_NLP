@@ -42,4 +42,8 @@ some assumptions about the input:
 
 The grammar does not deal with ambiguity. Since this NLP is performed over a very specific domain, the chances of ambuigity is rare. 
 
+To Run The Program:
+g++ cyk.cpp
+./a.out
 
+[test.txt is a file containing various commands that may be given as input and the program determines if the command is syntactically and semantically correct. Provide new inputs in this file.]

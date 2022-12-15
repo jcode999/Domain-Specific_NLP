@@ -355,7 +355,7 @@ int main()
     bool valid = ecr.symanticAnalysis(gramaticalKnowlegde);
 
     if(valid)
-    cout<<"The command is symantically correct."<<endl<<endl;
+    cout<<"The command is semantically correct."<<endl<<endl;
 
     }
 }
