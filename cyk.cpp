@@ -212,6 +212,7 @@ bool*** cyk(vector<string> input, char **rules, int n_rules,string states,vector
   
     string verb = "";
     string noun = "";
+    string adjective = "";
     for (int i = 0; i < loi; i++)
         for (int j = 0; j < n_rules; j++)
         {   
@@ -223,11 +224,17 @@ bool*** cyk(vector<string> input, char **rules, int n_rules,string states,vector
                 table[0][i][state_id] = true;
                 if (state_id==2){
                      verb = input.at(i);
+                     cout<<"verb: "<<verb<<endl;
                 }
                 else if(state_id==1){
                      noun = input.at(i);
+                     cout<<"noun: "<<noun<<endl;
                 }
                 //fill up other parts of speech for nlu
+                else if(state_id == 8){
+                    adjective = input.at(i);
+                    cout<<"adjective: "<<adjective<<endl;
+                }
             }
         }
     
@@ -277,11 +284,12 @@ bool*** cyk(vector<string> input, char **rules, int n_rules,string states,vector
         //printTable(table,loi,los);
         gramaticalKnowledge.push_back(verb);
         gramaticalKnowledge.push_back(noun);
+        gramaticalKnowledge.push_back(adjective);
         return table;
         }
     else
         {
-        cout<<"Input string cannot be generated from the grammar."<<endl;
+        cout<<"Invalid Command."<<endl;
         return nullptr;
         
         }
@@ -302,7 +310,9 @@ vector<string> processInput(string input){
     separetedInput.push_back(input.substr(start, end - start));
     return separetedInput;
 }
-
+void icreaseFontSize(int newSize){
+    cout<<"Increasing font to "<<newSize<<endl;
+}
 int main()
 {
     vector<vector<vector<int> > > traceback;
@@ -353,10 +363,14 @@ int main()
     cout<<"The command is syntactically correct."<<endl;
     
     bool valid = ecr.symanticAnalysis(gramaticalKnowlegde);
-
+    
     if(valid)
     cout<<"The command is semantically correct."<<endl<<endl;
-
+    cout<<"gramatical knowledge: "<<endl;
+    for(int x = 0;x<gramaticalKnowlegde.size();x++)
+    {
+        cout<<"   "<<gramaticalKnowlegde.at(x)<<endl;
+    }
     }
 }
     return 0;

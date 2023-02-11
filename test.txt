@@ -1,18 +1,2 @@
-increase the font size
+increase the font color
 increase the current font size
-increase hub
-increase font size
-connect font
-update the current theme
-increase current theme
-select a new line
-select the last line
-select line
-reset the current font size
-reset the font size
-reset font size
-reset editor scale
-update the current editor scale
-change the current editor scale
-get line number
-get the current line number
